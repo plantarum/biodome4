@@ -3,7 +3,8 @@
 #include <avr/power.h>
 #include <DS3232RTC.h> //source: https://github.com/JChristensen/DS3232RTC 
 #include <SD.h>
-#include <DallasTemperature.h>
+#include <DallasTemperature.h> // includes OneWire.h
+//#include <OneWire.h>
 
 // watchdog intervals
 // sleep bit patterns for WDTCSR
@@ -25,6 +26,11 @@ enum
 const byte POWER = 8;
 time_t tm;
 const int chipSelect = 10;
+
+const int TMPDATA = 7; // One wire bus
+byte tc26[8] = {0x3B, 0x52, 0x78, 0x18, 0x00, 0x00, 0x00, 0x95}; //#26
+OneWire oneWire(TMPDATA);
+DallasTemperature sensors(&oneWire);
 
 //SD CARD
 File logfile;
@@ -175,7 +181,8 @@ void loop ()
     // this is slightly less than 5 minutes, and accuracy isn't likely to
     // be too great. However, we get the true time from the RTC, so the
     // data is recorded accurately.
-    if (counter >= 37)
+    //if (counter >= 37)
+    if (counter >= 3)        
         {  
             ///*  DEBUGGING
             //Serial.begin (115200);
@@ -184,6 +191,10 @@ void loop ()
             Serial.print (millis ());
             Serial.print(" -- ");
             digitalWrite(POWER, HIGH);
+            // need to wait for the sensor to be ready here:
+            delay(100);
+            sensors.requestTemperatures(); // Send the command to get temperatures
+            
             tm = RTC.get();
             SD.begin(chipSelect);
             logfile = SD.open(fname, FILE_WRITE);
@@ -192,11 +203,17 @@ void loop ()
             Serial.print(":");
             Serial.println(second(tm), DEC);
 
+            Serial.print("Temp: ");
+            Serial.println(sensors.getTempC(tc26));
+            
             logfile.print(hour(tm), DEC);
             logfile.print(":");
             logfile.print(minute(tm), DEC);
             logfile.print(":");
             logfile.println(second(tm), DEC);
+            logfile.print("Temp: ");
+            logfile.println(sensors.getTempC(tc26));
+
             logfile.flush();
             logfile.close();
             
