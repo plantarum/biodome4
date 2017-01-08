@@ -4,7 +4,6 @@
 #include <DS3232RTC.h> //source: https://github.com/JChristensen/DS3232RTC 
 #include <SD.h>
 #include <DallasTemperature.h> // includes OneWire.h
-//#include <OneWire.h>
 
 // watchdog intervals
 // sleep bit patterns for WDTCSR
