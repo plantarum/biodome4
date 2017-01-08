@@ -221,30 +221,11 @@ void loop ()
 
             pinMode(chipSelect, INPUT);
             digitalWrite(POWER, LOW);            
-            //*/
-
-            /*
-            powerOnPeripherals ();
-            getTime ();
-            if (now.minute () != lastMinute)
-                {
-                    if ((now.minute () % TAKE_READINGS_EVERY) == 0)
-                        recordReading ();
-                    lastMinute = now.minute ();
-                }  // end of change in the minute
-            */
-                
-            ///*
             Serial.print ("Powering off at: ");
             Serial.println (millis ());
-            //Serial.flush ();
-            //Serial.end ();
-            //*/
-    
-            //powerOffPeripherals ();
       
             counter = 0;
-        }  // end of sleeping for 6 times
+        }  
     Serial.flush ();
     Serial.end ();
     
