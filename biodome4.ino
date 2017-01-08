@@ -124,7 +124,8 @@ void setup ()
     pinMode(POWER, OUTPUT);
     digitalWrite(POWER, HIGH);
     pinMode(chipSelect, OUTPUT);
-
+    // wait for RTC to be ready:
+    delay(100);
     tm = RTC.get();
     Serial.begin (115200);
     Serial.print("Logging started: ");
