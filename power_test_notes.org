@@ -1,0 +1,18 @@
+* Baseline
+  - Active current draw ca. 28-55 mA
+  - lowpower current draw ca. 1-1.1 mA
+
+* Temperature probe code removed
+  - active current draw ca. 30 - 55 mA - I think I'm not getting an
+    accurate reading of the high current draw spikes - i.e., sometimes, it
+    changes too fast to be caught by my ammeter?
+  - lowpower current draw is still 1-1.1 mA
+
+* Temperature hardward disconnected
+  - no change relative to having the probe code removed
+
+* SD card code removed
+  - lowpower current draw back down to 0 mA - problem identified!
+
+* Switching chipSelect pin to INPUT mode before sleeping
+  - low power current draw stays at 0 mA! 

@@ -161,6 +161,7 @@ void setup ()
     
     Serial.flush ();
     Serial.end ();
+    pinMode(chipSelect, INPUT);
     digitalWrite(POWER, LOW);
 }
 
@@ -191,6 +192,7 @@ void loop ()
             Serial.print (millis ());
             Serial.print(" -- ");
             digitalWrite(POWER, HIGH);
+            pinMode(chipSelect, OUTPUT);
             // need to wait for the sensor to be ready here:
             delay(100);
             sensors.requestTemperatures(); // Send the command to get temperatures
@@ -216,7 +218,8 @@ void loop ()
 
             logfile.flush();
             logfile.close();
-            
+
+            pinMode(chipSelect, INPUT);
             digitalWrite(POWER, LOW);            
             //*/
 
