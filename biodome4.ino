@@ -126,7 +126,7 @@ void setup ()
     // wait for RTC to be ready:
     delay(100);
     tm = RTC.get();
-    Serial.begin (115200);
+    Serial.begin (9600);
     Serial.print("Logging started: ");
 
     char buf[30];
@@ -174,7 +174,7 @@ void loop ()
 
     // count number of times we slept
     counter++;
-    Serial.begin (115200);
+    Serial.begin (9600);
     Serial.print (".");
     
     // every 296 seconds record data (37 lots of 8 seconds asleep)
